@@ -1,0 +1,40 @@
+
+
+arr = [1,5,11,6]
+
+n=len(arr)
+sum1=sum(arr)
+print(sum1)
+
+rows, cols = n+1, sum1+1
+t = [[-1 for i in range(cols)]for j in range(rows)]
+
+
+def subsetsum(arr,sum1,n):
+    if(sum1==0):
+        return True
+    if(n == 0):
+        return False
+    if(t[n][sum1]!=-1):
+        return(t[n][sum1])
+        
+    if(arr[n-1]>sum1):
+        t[n][sum1]=subsetsum(arr,sum1,n-1)
+        return t[n][sum1]
+
+    else:
+        t[n][sum1]=subsetsum(arr,sum1-arr[n-1],n-1) or subsetsum(arr,sum1,n-1)
+        return t[n][sum1]
+    
+def partition(sum1):
+    if(sum1%2 != 0):
+        return False
+
+r=partition(sum1)
+if r == False:
+    print("not possible")
+else:
+    r=subsetsum(arr,sum1//2,n)
+    if r==True:
+        print(True)
+
