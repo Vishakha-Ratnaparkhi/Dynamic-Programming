@@ -1,0 +1,30 @@
+
+#RECUSRSIVE + MEMO
+arr = [3, 34, 4, 12, 5, 2]
+sum1 = 9
+n=len(arr)
+rows, cols = n+1, sum1+1
+t = [[-1 for i in range(cols)]for j in range(rows)]
+
+
+def subsetsum(arr,sum1,n):
+    if(sum1==0):
+        return True
+    if(n == 0):
+        return False
+    if(t[n][sum1]!=-1):
+        return(t[n][sum1])
+        
+    if(arr[n-1]>sum1):
+        t[n][sum1]=subsetsum(arr,sum1,n-1)
+        return t[n][sum1]
+
+    else:
+        t[n][sum1]=subsetsum(arr,sum1-arr[n-1],n-1) or subsetsum(arr,sum1,n-1)
+        return t[n][sum1]
+    
+r=subsetsum(arr,sum1,n)
+if r:
+    print("found")
+else:
+    print("not found")
